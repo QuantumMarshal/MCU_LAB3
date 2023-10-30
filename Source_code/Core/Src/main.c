@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "software_timer.h"
+#include "fsm_traffic_light.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,8 +94,23 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  setTimer3(1);
+  setTimer4(1);
   while (1)
   {
+	  if (timer3_flag == 1){
+		  setTimer3(10);
+		  updateLedBuffer();
+	  }
+
+	  if (timer4_flag == 1){
+		  setTimer4(25);
+		  update7SEG(index_led++);
+		  if (index_led >= 4) index_led = 0;
+	  }
+
+	  fsm_traffic_light();
+	  fsm_mod_led();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -236,6 +251,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ){
 	timerRun();
+	getKeyInput();
 }
 /* USER CODE END 4 */
 
