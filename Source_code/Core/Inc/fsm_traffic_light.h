@@ -14,6 +14,5 @@
 #include "button.h"
 
 void fsm_traffic_light();
-void fsm_mod_led();
 
 #endif /* INC_FSM_TRAFFIC_LIGHT_H_ */
